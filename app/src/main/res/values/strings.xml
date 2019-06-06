@@ -3,4 +3,18 @@
 
     <string name="action_settings">Settings</string>
     <string name="action_add_car">Add A New Car</string>
+    <string name="afirm_new_car">Add New Car</string>
+    <string name="cancel">Cancel</string>
+    <string name="instruct_dialog_add_new_car">This dialog helps you add a new car.</string>
+
+
+    <!-- Placeholder Texts For Input Elements-->
+    <string name="ph_in_make">Make (Required)</string>
+    <string name="ph_in_model">Model (Required)</string>
+    <string name="ph_in_trim">Trim (Optional)</string>
+    <string name="ph_in_year">Year (Optional)</string>
+    <string name="ph_in_nickname">Nickname (Optional)</string>
+
+    <!-- Error messages -->
+    <string name="err_incomplete_car">Car is Incomplete. Will not be added.</string>
 </resources>

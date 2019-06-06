@@ -2,6 +2,7 @@ package org.henryschmale.milespergallontracker;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.fragment.app.DialogFragment;
 
 import android.app.ActionBar;
 import android.os.Bundle;
@@ -10,15 +11,17 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Spinner;
+import android.widget.SpinnerAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class MainActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener  {
+public class MainActivity extends AppCompatActivity
+        implements AdapterView.OnItemSelectedListener, AddCarDialogFragment.AddCarDialogListener  {
     final public String TAG = "MainActivity";
     Spinner carSpinner;
-    TextView errorMessage;
-
+    CarRepository repository;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,6 +32,8 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
         setSupportActionBar(myToolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
+
+        repository = new CarRepository(getApplication());
 
         carSpinner = findViewById(R.id.car_spinner);
         carSpinner.setOnItemSelectedListener(this);
@@ -49,8 +54,9 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                 return true;
 
             case R.id.action_add_car:
-                // User chose the "Favorite" action, mark the current item
-                // as a favorite...
+                DialogFragment newCar = new AddCarDialogFragment();
+                newCar.show(getSupportFragmentManager(), "Add A New Car");
+
                 return true;
 
             default:
@@ -68,5 +74,19 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     @Override
     public void onNothingSelected(AdapterView<?> parent) {
         Log.i(TAG, "Nothing is selected");
+    }
+
+    @Override
+    public void onDialogPositiveClick(DialogFragment dialog) {
+        if (dialog instanceof AddCarDialogFragment) {
+            AddCarDialogFragment fragment = (AddCarDialogFragment) dialog;
+
+            Car c = fragment.getCar();
+        }
+    }
+
+    @Override
+    public void onDialogNegativeClick(DialogFragment dialog) {
+        // Do nothing
     }
 }
