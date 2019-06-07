@@ -6,9 +6,17 @@
         android:title="@string/action_add_car"
         app:showAsAction="ifRoom"/>
 
+    <item android:id="@+id/action_open_source_licenses"
+        android:title="@string/menu_open_source"
+        app:showAsAction="never"/>
+
+    <item android:id="@+id/action_donate"
+        android:title="@string/menu_donate"
+        app:showAsAction="never"/>
+
     <!-- Settings, should always be in the overflow -->
     <item android:id="@+id/action_settings"
-        android:title="@string/action_settings"
+        android:title="@string/menu_settings"
         app:showAsAction="never"/>
 
 </menu>

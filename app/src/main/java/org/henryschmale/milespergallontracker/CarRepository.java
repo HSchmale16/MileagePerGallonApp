@@ -30,6 +30,10 @@ public class CarRepository {
         return carDao.getAllCars();
     }
 
+    public LiveData<List<MileageEvent>> getMileageEvents(Car c) {
+        return carDao.getMileages(c.id);
+    }
+
     private static class addCarTask extends AsyncTask<Car, Void, Void> {
 
         private CarDao mAsyncTaskDao;

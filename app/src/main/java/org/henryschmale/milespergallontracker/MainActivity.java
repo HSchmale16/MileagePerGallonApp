@@ -15,6 +15,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.GridView;
 import android.widget.Spinner;
 import android.widget.SpinnerAdapter;
 import android.widget.TextView;
@@ -23,6 +24,8 @@ import android.widget.Toast;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.List;
+
+import de.codecrafters.tableview.TableView;
 
 public class MainActivity extends AppCompatActivity
         implements AdapterView.OnItemSelectedListener  {
@@ -71,8 +74,11 @@ public class MainActivity extends AppCompatActivity
                 ArrayAdapter<Car> carArrayAdapter = new ArrayAdapter<>(MainActivity.this,
                         android.R.layout.simple_spinner_item, cars);
                 carSpinner.setAdapter(carArrayAdapter);
+
             }
         });
+
+
     }
 
     @Override
@@ -94,17 +100,28 @@ public class MainActivity extends AppCompatActivity
                 startActivityForResult(i, ADD_CAR_REQUEST_CODE);
 
                 return true;
-
+            case R.id.action_donate:
+                break;
+            case R.id.action_open_source_licenses:
+                break;
             default:
                 // If we got here, the user's action was not recognized.
                 // Invoke the superclass to handle it.
                 return super.onOptionsItemSelected(item);
         }
+        return super.onOptionsItemSelected(item);
     }
 
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-        Log.i(TAG, "An item was selected");
+        final TableView<MileageEvent> tableView = findViewById(R.id.sort_table);
+        repository.getMileageEvents((Car)carSpinner.getItemAtPosition(position)).observe(this,
+                new Observer<List<MileageEvent>>() {
+            @Override
+            public void onChanged(List<MileageEvent> mileageEvents) {
+                tableView.setDataAdapter(new MileageEventTableAdapter(MainActivity.this, mileageEvents));
+            }
+        });
     }
 
     @Override

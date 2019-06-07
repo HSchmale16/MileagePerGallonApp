@@ -1,7 +1,12 @@
 <resources>
     <string name="app_name">Miles Per Gallon Tracker</string>
 
-    <string name="action_settings">Settings</string>
+    <!-- Menu Stuff -->
+    <string name="menu_settings">Settings</string>
+    <string name="menu_open_source">Open Source Licenses</string>
+    <string name="menu_donate">Donate</string>
+
+    <!-- Others -->
     <string name="action_add_car">Add A New Car</string>
     <string name="afirm_new_car">Add New Car</string>
     <string name="cancel">Cancel</string>

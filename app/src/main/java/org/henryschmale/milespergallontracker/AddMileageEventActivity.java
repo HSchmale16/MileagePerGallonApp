@@ -67,7 +67,7 @@ public class AddMileageEventActivity extends AppCompatActivity {
             Toast.makeText(this, R.string.err_no_mileage, Toast.LENGTH_LONG).show();
             return;
         }
-        int mileage = Integer.valueOf(s);
+        long mileage = Integer.valueOf(s);
 
         i.putExtra("mileage", mileage);
         i.putExtra("ppg", ppg);
