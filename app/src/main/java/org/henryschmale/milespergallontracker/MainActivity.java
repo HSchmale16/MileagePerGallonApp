@@ -3,8 +3,11 @@ package org.henryschmale.milespergallontracker;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.DialogFragment;
+import androidx.lifecycle.Observer;
 
 import android.app.ActionBar;
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -17,9 +20,15 @@ import android.widget.SpinnerAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.List;
+
 public class MainActivity extends AppCompatActivity
-        implements AdapterView.OnItemSelectedListener, AddCarDialogFragment.AddCarDialogListener  {
+        implements AdapterView.OnItemSelectedListener  {
+
+
     final public String TAG = "MainActivity";
+    final private static int ADD_CAR_REQUEST_CODE = 1;
+
     Spinner carSpinner;
     CarRepository repository;
 
@@ -37,6 +46,18 @@ public class MainActivity extends AppCompatActivity
 
         carSpinner = findViewById(R.id.car_spinner);
         carSpinner.setOnItemSelectedListener(this);
+        repository.getAllCars().observe(this, new Observer<List<Car>>() {
+            @Override
+            public void onChanged(List<Car> cars) {
+                if (cars.size() == 0) {
+                    Toast.makeText(MainActivity.this, R.string.no_cars_available, Toast.LENGTH_LONG).show();
+                }
+                ArrayAdapter<Car> carArrayAdapter = new ArrayAdapter<>(MainActivity.this,
+                        android.R.layout.simple_spinner_item, cars);
+                carSpinner.setAdapter(carArrayAdapter);
+            }
+        });
+
     }
 
     @Override
@@ -54,8 +75,8 @@ public class MainActivity extends AppCompatActivity
                 return true;
 
             case R.id.action_add_car:
-                DialogFragment newCar = new AddCarDialogFragment();
-                newCar.show(getSupportFragmentManager(), "Add A New Car");
+                Intent i = new Intent(this, AddCarActivity.class);
+                startActivityForResult(i, ADD_CAR_REQUEST_CODE);
 
                 return true;
 
@@ -77,16 +98,23 @@ public class MainActivity extends AppCompatActivity
     }
 
     @Override
-    public void onDialogPositiveClick(DialogFragment dialog) {
-        if (dialog instanceof AddCarDialogFragment) {
-            AddCarDialogFragment fragment = (AddCarDialogFragment) dialog;
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        switch(requestCode) {
+            case ADD_CAR_REQUEST_CODE:
+                if (resultCode == Activity.RESULT_OK) {
+                    Car c = new Car();
+                    c.make = data.getStringExtra("make");
+                    c.nickname = data.getStringExtra("nick");
+                    c.model = data.getStringExtra("model");
+                    c.year = data.getStringExtra("year");
+                    c.trim = data.getStringExtra("trim");
 
-            Car c = fragment.getCar();
+                    new CarRepository(getApplication()).insert(c);
+
+                } else if (requestCode == Activity.RESULT_CANCELED) {
+                    Toast.makeText(this, R.string.no_car_added, Toast.LENGTH_LONG);
+                }
+                break;
         }
-    }
-
-    @Override
-    public void onDialogNegativeClick(DialogFragment dialog) {
-        // Do nothing
     }
 }

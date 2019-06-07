@@ -1,6 +1,7 @@
 package org.henryschmale.milespergallontracker;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
@@ -13,12 +14,15 @@ public class Car {
     public int id;
 
     @ColumnInfo(name = "car_make")
+    @NonNull
     public String make;
 
     @ColumnInfo(name = "car_model")
+    @NonNull
     public String model;
 
     @ColumnInfo(name = "car_trim")
+    @Nullable
     public String trim;
 
     @ColumnInfo(name = "car_nickname")
@@ -32,5 +36,10 @@ public class Car {
             return this.nickname;
         }
         return this.year + " " + this.make + " " + this.model + " " + this.trim;
+    }
+
+    @Override
+    public String toString() {
+        return getDisplayName();
     }
 }

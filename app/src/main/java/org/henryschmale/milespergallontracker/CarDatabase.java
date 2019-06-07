@@ -5,8 +5,10 @@ import android.content.Context;
 import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
+import androidx.room.TypeConverters;
 
-@Database( entities = {Car.class}, version = 1)
+@Database( entities = {Car.class, MileageEvent.class}, version = 1)
+@TypeConverters({Converters.class})
 public abstract class CarDatabase extends RoomDatabase {
 
     public abstract CarDao carDao();

@@ -17,4 +17,7 @@
 
     <!-- Error messages -->
     <string name="err_incomplete_car">Car is Incomplete. Will not be added.</string>
+    <string name="no_car_added">No Car Added</string>
+    <string name="empty_model">The model field is empty. It must be filled in.</string>
+    <string name="no_cars_available">There are no cars available. You should add a car using the "Add A New Car" button in the toolbar.</string>
 </resources>
