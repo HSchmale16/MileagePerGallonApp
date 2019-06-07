@@ -19,18 +19,22 @@ public class CarRepository {
     }
 
     public void insert (Car word) {
-        new insertAsyncTask(carDao).execute(word);
+        new addCarTask(carDao).execute(word);
+    }
+
+    public void addCarEvent(Car c, MileageEvent e) {
+        new addMileageTask(carDao).execute(c, e);
     }
 
     public LiveData<List<Car>> getAllCars() {
         return carDao.getAllCars();
     }
 
-    private static class insertAsyncTask extends AsyncTask<Car, Void, Void> {
+    private static class addCarTask extends AsyncTask<Car, Void, Void> {
 
         private CarDao mAsyncTaskDao;
 
-        insertAsyncTask(CarDao dao) {
+        addCarTask(CarDao dao) {
             mAsyncTaskDao = dao;
         }
 
@@ -38,6 +42,22 @@ public class CarRepository {
         protected Void doInBackground(final Car... params) {
             mAsyncTaskDao.addCar(params[0]);
             Log.i(CarRepository.TAG, "Inserted a car");
+            return null;
+        }
+    }
+
+    private static class addMileageTask extends AsyncTask<Object, Void, Void> {
+
+        private CarDao mAsyncTaskDao;
+
+        addMileageTask(CarDao dao) {
+            mAsyncTaskDao = dao;
+        }
+
+        @Override
+        protected Void doInBackground(final Object... things) {
+            mAsyncTaskDao.addMileageEvent((Car)things[0], (MileageEvent)things[1]);
+            Log.i(CarRepository.TAG, "Inserted mileage event");
             return null;
         }
     }

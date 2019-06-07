@@ -70,8 +70,4 @@
         <item>Yugo</item>
     </string-array>
 
-    <string-array name="event_types">
-        <value>Refuel</value>
-        <value>Forgot to refuel</value>
-    </string-array>
 </resources>

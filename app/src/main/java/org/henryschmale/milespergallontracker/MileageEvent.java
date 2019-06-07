@@ -1,5 +1,6 @@
 package org.henryschmale.milespergallontracker;
 
+import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.ForeignKey;
@@ -27,11 +28,16 @@ public class MileageEvent {
     public int id;
 
     @ColumnInfo(name = "car_id")
+    @NonNull
     public int carId;
 
+    @NonNull
     public long mileage;
+
+    public double costPerGallon;
+
+    public double gallons;
 
     public Date when;
 
-    public String eventType;
 }

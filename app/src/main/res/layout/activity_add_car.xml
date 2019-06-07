@@ -58,8 +58,9 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:ems="10"
+        android:digits="true"
         android:hint="@string/ph_in_year"
-        android:inputType="textPersonName"
+        android:inputType="number"
         app:layout_constraintTop_toBottomOf="@+id/trim"
         tools:layout_editor_absoluteX="98dp" />
 

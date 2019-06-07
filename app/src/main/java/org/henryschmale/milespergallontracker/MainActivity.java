@@ -20,6 +20,8 @@ import android.widget.SpinnerAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity
@@ -28,9 +30,11 @@ public class MainActivity extends AppCompatActivity
 
     final public String TAG = "MainActivity";
     final private static int ADD_CAR_REQUEST_CODE = 1;
+    final private static int ADD_MILEAGE_EVENT_RQUEST_CODE = 2;
 
     Spinner carSpinner;
     CarRepository repository;
+    FloatingActionButton fabAddMileageEvent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +47,16 @@ public class MainActivity extends AppCompatActivity
         getSupportActionBar().setDisplayShowTitleEnabled(false);
 
         repository = new CarRepository(getApplication());
+        fabAddMileageEvent = findViewById(R.id.floatingActionButton);
+        fabAddMileageEvent.setEnabled(false);
+
+        fabAddMileageEvent.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(MainActivity.this, AddMileageEventActivity.class);
+                startActivityForResult(i, ADD_MILEAGE_EVENT_RQUEST_CODE);
+            }
+        });
 
         carSpinner = findViewById(R.id.car_spinner);
         carSpinner.setOnItemSelectedListener(this);
@@ -51,13 +65,14 @@ public class MainActivity extends AppCompatActivity
             public void onChanged(List<Car> cars) {
                 if (cars.size() == 0) {
                     Toast.makeText(MainActivity.this, R.string.no_cars_available, Toast.LENGTH_LONG).show();
+                } else {
+                    fabAddMileageEvent.setEnabled(true);
                 }
                 ArrayAdapter<Car> carArrayAdapter = new ArrayAdapter<>(MainActivity.this,
                         android.R.layout.simple_spinner_item, cars);
                 carSpinner.setAdapter(carArrayAdapter);
             }
         });
-
     }
 
     @Override
@@ -112,7 +127,25 @@ public class MainActivity extends AppCompatActivity
                     new CarRepository(getApplication()).insert(c);
 
                 } else if (requestCode == Activity.RESULT_CANCELED) {
-                    Toast.makeText(this, R.string.no_car_added, Toast.LENGTH_LONG);
+                    Toast.makeText(this, R.string.no_car_added, Toast.LENGTH_LONG).show();
+                }
+                break;
+            case ADD_MILEAGE_EVENT_RQUEST_CODE:
+                if (resultCode == Activity.RESULT_OK) {
+                    MileageEvent event = new MileageEvent();
+                    Bundle b = data.getExtras();
+                    if (b != null) {
+                        event.costPerGallon = b.getDouble("ppg");
+                        event.gallons = b.getDouble("gallons");
+                        event.mileage = b.getLong("mileage");
+
+                        repository.addCarEvent((Car)carSpinner.getSelectedItem(), event);
+                    } else {
+                        Log.e(TAG, "Returned bundle was null");
+                    }
+
+                } else {
+                    Toast.makeText(this, R.string.no_mileage_added, Toast.LENGTH_LONG).show();
                 }
                 break;
         }

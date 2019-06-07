@@ -8,6 +8,11 @@
     <string name="instruct_dialog_add_new_car">This dialog helps you add a new car.</string>
 
 
+    <!-- Labels -->
+    <string name="lbl_price_per_gallon">Price Per Gallon</string>
+    <string name="lbl_gallons_taken">Gallons of Gas Taken</string>
+    <string name="lbl_current_mileage">Current Mileage</string>
+
     <!-- Placeholder Texts For Input Elements-->
     <string name="ph_in_make">Make (Required)</string>
     <string name="ph_in_model">Model (Required)</string>
@@ -17,7 +22,11 @@
 
     <!-- Error messages -->
     <string name="err_incomplete_car">Car is Incomplete. Will not be added.</string>
+    <string name="err_no_mileage">Please fill out the mileage field</string>
+    <string name="err_no_ppg">Please fill out price per gallon</string>
+    <string name="err_no_gallons">Please fill out the gallons field</string>
     <string name="no_car_added">No Car Added</string>
     <string name="empty_model">The model field is empty. It must be filled in.</string>
     <string name="no_cars_available">There are no cars available. You should add a car using the "Add A New Car" button in the toolbar.</string>
+    <string name="no_mileage_added">No Mileage Event Added</string>
 </resources>
