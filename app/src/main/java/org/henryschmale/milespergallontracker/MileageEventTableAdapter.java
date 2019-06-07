@@ -4,10 +4,6 @@ import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-
-import org.w3c.dom.Text;
-
-import java.text.DecimalFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
@@ -35,7 +31,7 @@ public class MileageEventTableAdapter extends TableDataAdapter<MileageEvent> {
                 renderedView = renderCost(event.costPerGallon);
                 break;
             case 3:
-                // renderedView = renderPrice(car);
+                renderedView = renderGallons(event.gallons);
                 break;
         }
 
@@ -57,6 +53,12 @@ public class MileageEventTableAdapter extends TableDataAdapter<MileageEvent> {
     TextView renderDate(Date d) {
         TextView v = new TextView(getContext());
         v.setText(d.toString());
+        return v;
+    }
+
+    TextView renderGallons(double gal) {
+        TextView v = new TextView(getContext());
+        v.setText(String.format(Locale.US, "%.3f", gal));
         return v;
     }
 }

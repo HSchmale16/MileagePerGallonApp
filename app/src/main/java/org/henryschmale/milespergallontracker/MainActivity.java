@@ -1,11 +1,5 @@
 package org.henryschmale.milespergallontracker;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-import androidx.fragment.app.DialogFragment;
-import androidx.lifecycle.Observer;
-
-import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -15,17 +9,18 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.GridView;
 import android.widget.Spinner;
-import android.widget.SpinnerAdapter;
-import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.lifecycle.Observer;
+import androidx.viewpager.widget.ViewPager;
+
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.tabs.TabLayout;
 
 import java.util.List;
-
-import de.codecrafters.tableview.TableView;
 
 public class MainActivity extends AppCompatActivity
         implements AdapterView.OnItemSelectedListener  {
@@ -38,6 +33,8 @@ public class MainActivity extends AppCompatActivity
     Spinner carSpinner;
     CarRepository repository;
     FloatingActionButton fabAddMileageEvent;
+    ViewPager viewPager;
+    private TabsPagerAdapter pagerAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,6 +46,39 @@ public class MainActivity extends AppCompatActivity
         setSupportActionBar(myToolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
 
+        TabLayout tabLayout = findViewById(R.id.tab_layout);
+        tabLayout.addTab(tabLayout.newTab().setText(R.string.tab_dashboard));
+        tabLayout.addTab(tabLayout.newTab().setText(R.string.tab_history_table));
+        tabLayout.addTab(tabLayout.newTab().setText(R.string.tab_graphs));
+        tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
+
+
+        viewPager = findViewById(R.id.pager);
+        pagerAdapter = new TabsPagerAdapter(getSupportFragmentManager());
+
+        viewPager.setAdapter(pagerAdapter);
+        viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
+
+        tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                viewPager.setCurrentItem(tab.getPosition());
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+
+            }
+        });
+
+
+        // Other stuff
         repository = new CarRepository(getApplication());
         fabAddMileageEvent = findViewById(R.id.floatingActionButton);
         fabAddMileageEvent.setEnabled(false);
@@ -98,7 +128,6 @@ public class MainActivity extends AppCompatActivity
             case R.id.action_add_car:
                 Intent i = new Intent(this, AddCarActivity.class);
                 startActivityForResult(i, ADD_CAR_REQUEST_CODE);
-
                 return true;
             case R.id.action_donate:
                 break;
@@ -114,6 +143,8 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
+        /*
         final TableView<MileageEvent> tableView = findViewById(R.id.sort_table);
         repository.getMileageEvents((Car)carSpinner.getItemAtPosition(position)).observe(this,
                 new Observer<List<MileageEvent>>() {
@@ -122,6 +153,11 @@ public class MainActivity extends AppCompatActivity
                 tableView.setDataAdapter(new MileageEventTableAdapter(MainActivity.this, mileageEvents));
             }
         });
+
+        final String[] HEADERS = {"Date", "Mileage", "Per Gallon", "Gallons"};
+        tableView.setHeaderAdapter(new SimpleTableHeaderAdapter(MainActivity.this, HEADERS));
+
+        */
     }
 
     @Override
@@ -168,3 +204,4 @@ public class MainActivity extends AppCompatActivity
         }
     }
 }
+
