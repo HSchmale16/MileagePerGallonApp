@@ -38,27 +38,30 @@ public class MileageEventTableAdapter extends TableDataAdapter<MileageEvent> {
         return renderedView;
     }
 
-    TextView renderCost(double cost) {
+    private TextView renderCost(double cost) {
         TextView v = new TextView(getContext());
         v.setText(String.format(Locale.US, "$%.2f", cost));
+        v.setTextAlignment(View.TEXT_ALIGNMENT_TEXT_END);
         return v;
     }
 
-    TextView renderMileage(long m) {
+    private TextView renderMileage(long m) {
         TextView v = new TextView(getContext());
-        v.setText(Long.toString(m));
+        v.setText(String.format(Locale.US, "%d", m));
+        v.setTextAlignment(View.TEXT_ALIGNMENT_TEXT_END);
         return v;
     }
 
-    TextView renderDate(Date d) {
+    private TextView renderDate(Date d) {
         TextView v = new TextView(getContext());
         v.setText(d.toString());
         return v;
     }
 
-    TextView renderGallons(double gal) {
+    private TextView renderGallons(double gal) {
         TextView v = new TextView(getContext());
         v.setText(String.format(Locale.US, "%.3f", gal));
+        v.setTextAlignment(View.TEXT_ALIGNMENT_TEXT_END);
         return v;
     }
 }

@@ -15,12 +15,16 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.lifecycle.ViewModelProviders;
 import androidx.viewpager.widget.ViewPager;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.tabs.TabLayout;
 
 import java.util.List;
+
+import de.codecrafters.tableview.TableView;
 
 public class MainActivity extends AppCompatActivity
         implements AdapterView.OnItemSelectedListener  {
@@ -35,6 +39,8 @@ public class MainActivity extends AppCompatActivity
     FloatingActionButton fabAddMileageEvent;
     ViewPager viewPager;
     private TabsPagerAdapter pagerAdapter;
+    private TabLayout tabLayout;
+    private SharedMpgViewModel viewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,7 +52,10 @@ public class MainActivity extends AppCompatActivity
         setSupportActionBar(myToolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
 
-        TabLayout tabLayout = findViewById(R.id.tab_layout);
+        viewModel = ViewModelProviders.of(this).get(SharedMpgViewModel.class);
+
+
+        tabLayout = findViewById(R.id.tab_layout);
         tabLayout.addTab(tabLayout.newTab().setText(R.string.tab_dashboard));
         tabLayout.addTab(tabLayout.newTab().setText(R.string.tab_history_table));
         tabLayout.addTab(tabLayout.newTab().setText(R.string.tab_graphs));
@@ -157,7 +166,12 @@ public class MainActivity extends AppCompatActivity
         final String[] HEADERS = {"Date", "Mileage", "Per Gallon", "Gallons"};
         tableView.setHeaderAdapter(new SimpleTableHeaderAdapter(MainActivity.this, HEADERS));
 
-        */
+        //*/
+
+        Car selected = (Car) carSpinner.getSelectedItem();
+        Log.d(TAG, "The selected car is " + selected.toString());
+        viewModel.setSelectedCar(selected);
+
     }
 
     @Override

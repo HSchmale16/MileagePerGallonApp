@@ -25,7 +25,7 @@ public class AddCarActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_car);
 
-        confirmButton = (Button) findViewById(R.id.ok_button);
+        confirmButton = findViewById(R.id.ok_button);
         confirmButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -45,9 +45,8 @@ public class AddCarActivity extends AppCompatActivity {
 
     private void returnCar() {
         Intent i = new Intent();
-        Car car = new Car();
 
-        final Spinner makeSpinner = (Spinner) findViewById(R.id.makeSpinner);
+        final Spinner makeSpinner = findViewById(R.id.makeSpinner);
         String make = (String) makeSpinner.getSelectedItem();
 
         final EditText modelText = findViewById(R.id.model);

@@ -15,7 +15,7 @@ public class TabsPagerAdapter extends FragmentPagerAdapter {
             case 0:
                 return new DashboardFragment();
             case 1:
-                return new DashboardFragment();
+                return new HistoryTableFragment();
             case 2:
                 return new DashboardFragment();
         }

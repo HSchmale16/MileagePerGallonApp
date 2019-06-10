@@ -44,8 +44,13 @@ public abstract class CarDao {
 
     void addMileageEvent(Car car, MileageEvent event) {
         event.carId = car.id;
-        event.when = new Date();
-        Log.d(TAG, "Latest mileage is " + getLatestMileageForCar(car.id).toString());
+        if (event.when == null)
+            event.when = new Date();
+
+        MileageTuple latestMileage = getLatestMileageForCar(car.id);
+        if (latestMileage != null)
+            Log.d(TAG, "Latest mileage is " + latestMileage.toString());
+
         _addMileage(event);
     }
 }

@@ -39,5 +39,4 @@ public class MileageEvent {
     public double gallons;
 
     public Date when;
-
 }
