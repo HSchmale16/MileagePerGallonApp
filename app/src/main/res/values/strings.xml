@@ -8,7 +8,6 @@
 
     <!-- Others -->
     <string name="action_add_car">Add A New Car</string>
-    <string name="afirm_new_car">Add New Car</string>
     <string name="cancel">Cancel</string>
     <string name="instruct_dialog_add_new_car">This dialog helps you add a new car.</string>
 
@@ -19,17 +18,17 @@
     <!-- Labels -->
     <string name="lbl_price_per_gallon">Price Per Gallon</string>
     <string name="lbl_gallons_taken">Gallons of Gas Taken</string>
+    <string name="lbl_current_mileage_last">Current Mileage\n(Last: %,.2f)</string>
     <string name="lbl_current_mileage">Current Mileage</string>
 
+
     <!-- Placeholder Texts For Input Elements-->
-    <string name="ph_in_make">Make (Required)</string>
     <string name="ph_in_model">Model (Required)</string>
     <string name="ph_in_trim">Trim (Optional)</string>
     <string name="ph_in_year">Year (Optional)</string>
     <string name="ph_in_nickname">Nickname (Optional)</string>
 
     <!-- Error messages -->
-    <string name="err_incomplete_car">Car is Incomplete. Will not be added.</string>
     <string name="err_no_mileage">Please fill out the mileage field</string>
     <string name="err_no_ppg">Please fill out price per gallon</string>
     <string name="err_no_gallons">Please fill out the gallons field</string>
@@ -39,6 +38,19 @@
     <string name="no_mileage_added">No Mileage Event Added</string>
     <string name="no_data_history_table">There is no data in the history table</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string name="hello_blank_fragment">No Data in fragment yet</string>
+
+
+    <!-- Open Source Licenses -->
+    <string name="open_source_licenses"><![CDATA[
+        <big>Open Source License</big><br/>
+
+        <p>This product uses several open source products:</p>
+
+        <ul>
+            <li><a href="https://github.com/ISchwarz23/SortableTableView">Sortable Table View</a> - Apache 2.0</li>
+        </ul>
+    ]]>
+    </string>
 </resources>

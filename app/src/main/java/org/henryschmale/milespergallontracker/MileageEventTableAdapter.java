@@ -47,7 +47,7 @@ public class MileageEventTableAdapter extends TableDataAdapter<MileageEvent> {
 
     private TextView renderMileage(long m) {
         TextView v = new TextView(getContext());
-        v.setText(String.format(Locale.US, "%d", m));
+        v.setText(String.format(Locale.US, "%,d", m));
         v.setTextAlignment(View.TEXT_ALIGNMENT_TEXT_END);
         return v;
     }

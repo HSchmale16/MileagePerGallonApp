@@ -54,8 +54,8 @@ public class HistoryTableFragment extends Fragment {
         SharedMpgViewModel viewModel = ViewModelProviders.of(getActivity()).get(SharedMpgViewModel.class);
 
         final String[] HEADERS = {"Date", "Mileage", "Per Gallon", "Gallons"};
-        view.setHeaderAdapter(
-                new SimpleTableHeaderAdapter(HistoryTableFragment.this.getActivity(), HEADERS));
+        SimpleTableHeaderAdapter adapter = new SimpleTableHeaderAdapter(HistoryTableFragment.this.getActivity(), HEADERS);
+        view.setHeaderAdapter(adapter);
 
         view.setEmptyDataIndicatorView(emptyDataIndicator);
 

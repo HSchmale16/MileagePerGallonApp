@@ -32,6 +32,9 @@ public abstract class CarDao {
     @Query("SELECT * FROM mileage_events WHERE car_id = :car_id ORDER BY `when` DESC")
     abstract LiveData<List<MileageEvent>> getMileages(int car_id);
 
+    @Query("SELECT * FROM car WHERE car_id = :car_id LIMIT 1")
+    abstract Car getSingleCar(long car_id);
+
     @Insert
     abstract void addCar(Car car);
 

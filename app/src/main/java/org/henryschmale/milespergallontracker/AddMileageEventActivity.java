@@ -5,16 +5,19 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class AddMileageEventActivity extends AppCompatActivity {
     private final static String TAG = "AddCarActivity";
     Button cancelButton;
     Button confirmButton;
+    double lastMileage;
 
 
 
@@ -22,6 +25,24 @@ public class AddMileageEventActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_mileage_event);
+
+        Bundle extras = getIntent().getExtras();
+        int carId = extras.getInt("car_id");
+        Log.d(TAG, "The car id is " + carId);
+
+        CarRepository repo = new CarRepository(getApplication());
+
+        CarDao.MileageTuple tuple = repo.getCarDao().getLatestMileageForCar(carId);
+        if (tuple != null) {
+            final TextView currentMileage = findViewById(R.id.lbl_current_mileage);
+            lastMileage = tuple.mileage;
+            String s = getString(R.string.lbl_current_mileage_last, lastMileage);
+            currentMileage.setText(s);
+        } else {
+            Log.d(TAG, "Failed to get last mileage");
+            lastMileage = 0;
+        }
+
 
         confirmButton = findViewById(R.id.ok_button);
         confirmButton.setOnClickListener(new View.OnClickListener() {

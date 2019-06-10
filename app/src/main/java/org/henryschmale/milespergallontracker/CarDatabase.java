@@ -23,6 +23,7 @@ public abstract class CarDatabase extends RoomDatabase {
                 if (INSTANCE == null) {
                     INSTANCE = Room.databaseBuilder(
                             context.getApplicationContext(), CarDatabase.class, "car_database.sqlite")
+                            .allowMainThreadQueries()
                                     .build();
                 }
             }

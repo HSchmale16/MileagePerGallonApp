@@ -34,6 +34,15 @@ public class CarRepository {
         return carDao.getMileages(c.id);
     }
 
+    public CarDao getCarDao() {
+        return carDao;
+    }
+
+    public Car getCar(long carId) {
+        return carDao.getSingleCar(carId);
+    }
+
+
     private static class addCarTask extends AsyncTask<Car, Void, Void> {
 
         private CarDao mAsyncTaskDao;

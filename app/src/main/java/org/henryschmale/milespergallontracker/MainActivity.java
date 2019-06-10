@@ -15,7 +15,6 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.viewpager.widget.ViewPager;
 
@@ -24,7 +23,6 @@ import com.google.android.material.tabs.TabLayout;
 
 import java.util.List;
 
-import de.codecrafters.tableview.TableView;
 
 public class MainActivity extends AppCompatActivity
         implements AdapterView.OnItemSelectedListener  {
@@ -96,6 +94,8 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(MainActivity.this, AddMileageEventActivity.class);
+                Car c = (Car)carSpinner.getSelectedItem();
+                i.putExtra("car_id", c.id);
                 startActivityForResult(i, ADD_MILEAGE_EVENT_RQUEST_CODE);
             }
         });
@@ -129,18 +129,21 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+        Intent i;
         switch (item.getItemId()) {
             case R.id.action_settings:
                 // User chose the "Settings" item, show the app settings UI...
                 return true;
 
             case R.id.action_add_car:
-                Intent i = new Intent(this, AddCarActivity.class);
+                i = new Intent(this, AddCarActivity.class);
                 startActivityForResult(i, ADD_CAR_REQUEST_CODE);
                 return true;
             case R.id.action_donate:
                 break;
             case R.id.action_open_source_licenses:
+                i = new Intent(this, OpenSourceLicensesActivity.class);
+                startActivity(i);
                 break;
             default:
                 // If we got here, the user's action was not recognized.
@@ -152,22 +155,6 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-
-        /*
-        final TableView<MileageEvent> tableView = findViewById(R.id.sort_table);
-        repository.getMileageEvents((Car)carSpinner.getItemAtPosition(position)).observe(this,
-                new Observer<List<MileageEvent>>() {
-            @Override
-            public void onChanged(List<MileageEvent> mileageEvents) {
-                tableView.setDataAdapter(new MileageEventTableAdapter(MainActivity.this, mileageEvents));
-            }
-        });
-
-        final String[] HEADERS = {"Date", "Mileage", "Per Gallon", "Gallons"};
-        tableView.setHeaderAdapter(new SimpleTableHeaderAdapter(MainActivity.this, HEADERS));
-
-        //*/
-
         Car selected = (Car) carSpinner.getSelectedItem();
         Log.d(TAG, "The selected car is " + selected.toString());
         viewModel.setSelectedCar(selected);
@@ -210,7 +197,6 @@ public class MainActivity extends AppCompatActivity
                     } else {
                         Log.e(TAG, "Returned bundle was null");
                     }
-
                 } else {
                     Toast.makeText(this, R.string.no_mileage_added, Toast.LENGTH_LONG).show();
                 }
