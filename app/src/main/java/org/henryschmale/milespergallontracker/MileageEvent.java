@@ -7,7 +7,7 @@ import androidx.room.ForeignKey;
 import androidx.room.Index;
 import androidx.room.PrimaryKey;
 
-import java.util.Date;
+import java.sql.Date;
 
 import static androidx.room.ForeignKey.CASCADE;
 

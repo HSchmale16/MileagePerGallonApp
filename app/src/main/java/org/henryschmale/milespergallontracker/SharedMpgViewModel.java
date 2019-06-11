@@ -18,6 +18,7 @@ public class SharedMpgViewModel extends AndroidViewModel {
     public static final String TAG = "SharedMpgViewModel";
     private final MutableLiveData<Car> selectedCar = new MutableLiveData<>();
     private MutableLiveData<LiveData<List<MileageEvent>>> mileageEvents;
+    private MutableLiveData<LiveData<List<MileageInterval>>> mileageIntervals;
     private CarRepository repository;
 
     public SharedMpgViewModel(@NonNull Application application) {
@@ -25,11 +26,13 @@ public class SharedMpgViewModel extends AndroidViewModel {
         repository = new CarRepository(application);
 
         mileageEvents = new MutableLiveData<>();
+        mileageIntervals = new MutableLiveData<>();
     }
 
     public void setSelectedCar(Car c) {
         selectedCar.setValue(c);
         mileageEvents.setValue(repository.getMileageEvents(c));
+        mileageIntervals.setValue(repository.getMileageIntervals(c, "-1 year"));
     }
 
     public LiveData<Car> getSelectedCar() {
@@ -40,4 +43,7 @@ public class SharedMpgViewModel extends AndroidViewModel {
         return mileageEvents;
     }
 
+    public LiveData<LiveData<List<MileageInterval>>> getMileageIntervals() {
+        return mileageIntervals;
+    }
 }

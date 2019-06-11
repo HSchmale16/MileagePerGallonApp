@@ -34,6 +34,10 @@ public class CarRepository {
         return carDao.getMileages(c.id);
     }
 
+    public LiveData<List<MileageInterval>> getMileageIntervals(Car c, String since) {
+        return carDao.getMileageIntervals(c.id, since);
+    }
+
     public CarDao getCarDao() {
         return carDao;
     }

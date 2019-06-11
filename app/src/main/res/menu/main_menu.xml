@@ -19,4 +19,7 @@
         android:title="@string/menu_settings"
         app:showAsAction="never"/>
 
+    <item android:id="@+id/action_clear_db"
+        android:title="ClearDb"
+        app:showAsAction="never"/>
 </menu>

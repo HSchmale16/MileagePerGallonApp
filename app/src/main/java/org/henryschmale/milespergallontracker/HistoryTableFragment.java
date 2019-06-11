@@ -24,7 +24,7 @@ import de.codecrafters.tableview.toolkit.SimpleTableHeaderAdapter;
  * create an instance of this fragment.
  */
 public class HistoryTableFragment extends Fragment {
-    TableView<MileageEvent> view;
+    TableView<MileageInterval> view;
     View emptyDataIndicator;
 
     public HistoryTableFragment() {
@@ -53,12 +53,14 @@ public class HistoryTableFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
         SharedMpgViewModel viewModel = ViewModelProviders.of(getActivity()).get(SharedMpgViewModel.class);
 
-        final String[] HEADERS = {"Date", "Mileage", "Per Gallon", "Gallons"};
+        final String[] HEADERS = {"From", "To", "Mileage", "Per Gallon", "Cost Per Mile"};
         SimpleTableHeaderAdapter adapter = new SimpleTableHeaderAdapter(HistoryTableFragment.this.getActivity(), HEADERS);
         view.setHeaderAdapter(adapter);
 
+        view.setColumnCount(5);
         view.setEmptyDataIndicatorView(emptyDataIndicator);
 
+        /*
         viewModel.getMileageEvents().observe(this, new Observer<LiveData<List<MileageEvent>>>() {
             @Override
             public void onChanged(LiveData<List<MileageEvent>> listLiveData) {
@@ -68,6 +70,22 @@ public class HistoryTableFragment extends Fragment {
                     public void onChanged(List<MileageEvent> mileageEvents) {
                         view.setDataAdapter(new MileageEventTableAdapter(
                                 HistoryTableFragment.this.getActivity(), mileageEvents
+                        ));
+                    }
+                });
+            }
+        });
+        */
+
+        viewModel.getMileageIntervals().observe(this, new Observer<LiveData<List<MileageInterval>>>() {
+            @Override
+            public void onChanged(LiveData<List<MileageInterval>> listLiveData) {
+                listLiveData.removeObservers(HistoryTableFragment.this);
+                listLiveData.observe(HistoryTableFragment.this, new Observer<List<MileageInterval>>() {
+                    @Override
+                    public void onChanged(List<MileageInterval> mileageIntervals) {
+                        view.setDataAdapter(new MileageIntervalTableAdapter(
+                                HistoryTableFragment.this.getActivity(), mileageIntervals
                         ));
                     }
                 });
