@@ -43,7 +43,6 @@
     <string name="hello_blank_fragment">No Data in fragment yet</string>
 
 
-
     <!-- Open Source Licenses -->
     <string name="open_source_licenses"><![CDATA[
         <big>Open Source License</big><br/>
@@ -53,6 +52,20 @@
         <ul>
             <li><a href="https://github.com/ISchwarz23/SortableTableView">Sortable Table View</a> - Apache 2.0</li>
         </ul>
+
+        <p>This product also uses free icons.</p>
+
+        <ul>
+            <li>Diesel icon from <a href="https://www.flaticon.com/authors/surang" title="surang">surang</a> at <a href="https://www.flaticon.com/" 			    title="Flaticon">www.flaticon.com</a> is licensed by <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0" target="_blank">CC 3.0 BY</a></li>
+        </ul>
     ]]>
     </string>
+
+    <!-- stat labels on dashboard -->
+    <string name="stat_mpg_lbl">Average Miles Per Gallon</string>
+    <string name="stat_miles_between_fillups">Average Miles Between Fillups</string>
+    <string name="stat_average_cost_per_mile">Average Cost Per Mile</string>
+    <string name="stat_total_miles_tracked">Total Miles Tracked</string>
+    <string name="def_statcard_description_lbl">No Stat Card Description Set</string>
+
 </resources>

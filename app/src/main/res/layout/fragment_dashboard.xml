@@ -2,11 +2,34 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
     android:layout_height="match_parent"
     tools:context=".DashboardFragment">
 
-
-    <androidx.cardview.widget.CardView
+    <org.henryschmale.milespergallontracker.view.StatCard
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        app:description="@string/stat_mpg_lbl"
+        app:iconDrawable="@drawable/ic_diesel"/>
+
+
+    <org.henryschmale.milespergallontracker.view.StatCard
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        app:description="@string/stat_average_cost_per_mile"/>
+
+    <org.henryschmale.milespergallontracker.view.StatCard
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        app:description="@string/stat_miles_between_fillups"/>
+
+    <org.henryschmale.milespergallontracker.view.StatCard
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        app:description="@string/stat_total_miles_tracked"/>
 </LinearLayout>
