@@ -60,23 +60,6 @@ public class HistoryTableFragment extends Fragment {
         view.setColumnCount(5);
         view.setEmptyDataIndicatorView(emptyDataIndicator);
 
-        /*
-        viewModel.getMileageEvents().observe(this, new Observer<LiveData<List<MileageEvent>>>() {
-            @Override
-            public void onChanged(LiveData<List<MileageEvent>> listLiveData) {
-                listLiveData.removeObservers(HistoryTableFragment.this);
-                listLiveData.observe(HistoryTableFragment.this, new Observer<List<MileageEvent>>() {
-                    @Override
-                    public void onChanged(List<MileageEvent> mileageEvents) {
-                        view.setDataAdapter(new MileageEventTableAdapter(
-                                HistoryTableFragment.this.getActivity(), mileageEvents
-                        ));
-                    }
-                });
-            }
-        });
-        */
-
         viewModel.getMileageIntervals().observe(this, new Observer<LiveData<List<MileageInterval>>>() {
             @Override
             public void onChanged(LiveData<List<MileageInterval>> listLiveData) {

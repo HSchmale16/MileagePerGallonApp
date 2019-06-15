@@ -9,7 +9,7 @@ import androidx.room.Dao;
 import androidx.room.Insert;
 import androidx.room.Query;
 
-import java.sql.Date;
+import java.util.Date;
 import java.util.List;
 
 @Dao
@@ -65,6 +65,13 @@ public abstract class CarDao {
             "WHERE car_id = :car_id AND \"when\" >= 0 AND :since LIKE '%year%' " +
             "ORDER BY \"when\" DESC")
     abstract LiveData<List<MileageInterval>> getMileageIntervals(long car_id, String since);
+
+
+    @Query("SELECT COUNT(*) FROM car")
+    abstract long carCount();
+
+    @Query("SELECT COUNT(*) FROM mileage_events")
+    abstract long mileageEventCount();
 
     void addMileageEvent(Car car, MileageEvent event) {
         event.carId = car.id;

@@ -2,7 +2,7 @@ package org.henryschmale.milespergallontracker;
 
 import androidx.room.ColumnInfo;
 
-import java.sql.Date;
+import java.util.Date;
 
 public class MileageInterval {
     @ColumnInfo(name = "when")

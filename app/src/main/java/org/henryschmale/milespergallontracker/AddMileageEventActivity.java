@@ -8,10 +8,13 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import java.util.Date;
 
 public class AddMileageEventActivity extends AppCompatActivity {
     private final static String TAG = "AddCarActivity";
@@ -90,9 +93,13 @@ public class AddMileageEventActivity extends AppCompatActivity {
         }
         long mileage = Integer.valueOf(s);
 
+        DatePicker picker = findViewById(R.id.datePicker);
+        Date d = new Date(picker.getYear() - 1000, picker.getMonth(), picker.getDayOfMonth());
+
         i.putExtra("mileage", mileage);
         i.putExtra("ppg", ppg);
         i.putExtra("gallons", gallons);
+        i.putExtra("date", d.getTime());
 
         setResult(Activity.RESULT_OK, i);
         finish();

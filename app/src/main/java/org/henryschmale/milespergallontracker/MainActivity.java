@@ -21,6 +21,7 @@ import androidx.viewpager.widget.ViewPager;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.tabs.TabLayout;
 
+import java.util.Date;
 import java.util.List;
 
 
@@ -192,6 +193,7 @@ public class MainActivity extends AppCompatActivity
                         event.costPerGallon = b.getDouble("ppg");
                         event.gallons = b.getDouble("gallons");
                         event.mileage = b.getLong("mileage");
+                        event.when = new Date(b.getLong("date"));
 
                         repository.addCarEvent((Car)carSpinner.getSelectedItem(), event);
                     } else {

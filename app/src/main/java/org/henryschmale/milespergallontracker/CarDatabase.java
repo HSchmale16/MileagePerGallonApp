@@ -6,6 +6,7 @@ import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
 import androidx.room.TypeConverters;
+import androidx.sqlite.db.SupportSQLiteDatabase;
 
 @Database(
         entities = {Car.class, MileageEvent.class},
@@ -21,10 +22,12 @@ public abstract class CarDatabase extends RoomDatabase {
         if (INSTANCE == null) {
             synchronized (CarDatabase.class) {
                 if (INSTANCE == null) {
+
+
                     INSTANCE = Room.databaseBuilder(
                             context.getApplicationContext(), CarDatabase.class, "car_database.sqlite")
                             .allowMainThreadQueries()
-                                    .build();
+                            .build();
                 }
             }
         }

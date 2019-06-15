@@ -2,7 +2,7 @@ package org.henryschmale.milespergallontracker;
 
 import androidx.room.TypeConverter;
 
-import java.sql.Date;
+import java.util.Date;
 
 public class Converters {
     @TypeConverter

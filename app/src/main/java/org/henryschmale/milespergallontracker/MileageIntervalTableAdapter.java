@@ -5,7 +5,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import java.sql.Date;
+import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
