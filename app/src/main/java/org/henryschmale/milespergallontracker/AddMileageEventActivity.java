@@ -1,5 +1,6 @@
 package org.henryschmale.milespergallontracker;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.DialogFragment;
 
@@ -28,7 +29,6 @@ public class AddMileageEventActivity extends AppCompatActivity {
     private Calendar mainCalendar;
 
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,7 +43,6 @@ public class AddMileageEventActivity extends AppCompatActivity {
 
         Button confirmButton = findViewById(R.id.ok_button);
         confirmButton.setOnClickListener(v -> AddMileageEventActivity.this.returnMileageEvent());
-
 
         Button cancelButton = findViewById(R.id.cancel_button);
         cancelButton.setOnClickListener(v -> AddMileageEventActivity.this.canceled());
@@ -133,16 +132,20 @@ public class AddMileageEventActivity extends AppCompatActivity {
 
         // Latest Mileage Update
         CarRepository repo = new CarRepository(getApplication());
-        CarDao.MileageTuple tuple = repo.getCarDao().getLatestMileageForCar(carId);
+        Log.d(TAG, "Attempting to get latest mileage for car id = " + carId + " on " + d.toString());
+        CarDao.MileageTuple tuple = repo.getCarDao().getLatestMileageForCar(carId, d);
         double lastMileage;
         if (tuple != null) {
             final TextView currentMileage = findViewById(R.id.lbl_current_mileage);
             lastMileage = tuple.mileage;
             String s = getString(R.string.lbl_current_mileage_last, lastMileage);
             currentMileage.setText(s);
+
+            java.text.DateFormat dtFormat = DateFormat.getLongDateFormat(getApplicationContext());
+            final TextView lblTimestamp = findViewById(R.id.lbl_datetime);
+            lblTimestamp.setText(getString(R.string.lbl_date_picker_last, dtFormat.format(tuple.when)));
         } else {
             Log.d(TAG, "Failed to get last mileage");
-            lastMileage = 0;
         }
     }
 
@@ -150,6 +153,7 @@ public class AddMileageEventActivity extends AppCompatActivity {
             implements TimePickerDialog.OnTimeSetListener {
 
         @Override
+        @NonNull
         public Dialog onCreateDialog(Bundle savedInstanceState) {
             // Use the current time as the default values for the picker
             final Calendar c = Calendar.getInstance();
@@ -172,6 +176,7 @@ public class AddMileageEventActivity extends AppCompatActivity {
             implements DatePickerDialog.OnDateSetListener {
 
         @Override
+        @NonNull
         public Dialog onCreateDialog(Bundle savedInstanceState) {
             // Use the current date as the default date in the picker
             final Calendar c = Calendar.getInstance();

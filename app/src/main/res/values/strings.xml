@@ -20,7 +20,8 @@
     <string name="lbl_gallons_taken">Gallons of Gas Taken</string>
     <string name="lbl_current_mileage_last">Current Mileage\n(Last: %,.2f)</string>
     <string name="lbl_current_mileage">Current Mileage</string>
-    <string name="lbl_date_picker">When You Last Fueled</string>
+    <string name="lbl_date_picker">When You Fueled</string>
+    <string name="lbl_date_picker_last">When you fueled\n(Last: %s)</string>
 
 
     <!-- Placeholder Texts For Input Elements-->

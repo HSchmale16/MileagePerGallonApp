@@ -8,6 +8,7 @@ import androidx.room.ColumnInfo;
 import androidx.room.Dao;
 import androidx.room.Insert;
 import androidx.room.Query;
+import androidx.room.Update;
 
 import java.util.Date;
 import java.util.List;
@@ -19,6 +20,8 @@ public abstract class CarDao {
     public static class MileageTuple {
         @ColumnInfo(name = "mileage")
         double mileage;
+
+        Date when;
 
         @Override
         public String toString() {
@@ -41,11 +44,19 @@ public abstract class CarDao {
     @Insert
     abstract void addCar(Car car);
 
+    @Update
+    abstract int updateCar(Car c);
+
     @Insert
     abstract void _addMileage(MileageEvent event);
 
-    @Query("SELECT mileage FROM mileage_events WHERE car_id = :car_id ORDER BY `when` DESC LIMIT 1")
+    @Query("SELECT mileage, `when` FROM mileage_events WHERE car_id = :car_id ORDER BY `when` DESC LIMIT 1")
     abstract MileageTuple getLatestMileageForCar(int car_id);
+
+    @Query("SELECT mileage, `when` FROM mileage_events WHERE car_id = :car_id AND `when` <= :date ORDER BY `when` DESC LIMIT 1")
+    abstract MileageTuple getLatestMileageForCar(int car_id, Date date);
+
+
 
 
     /**

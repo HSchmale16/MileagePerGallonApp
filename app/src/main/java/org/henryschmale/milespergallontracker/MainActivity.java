@@ -34,6 +34,7 @@ public class MainActivity extends AppCompatActivity
     final public String TAG = "MainActivity";
     final private static int ADD_CAR_REQUEST_CODE = 1;
     final private static int ADD_MILEAGE_EVENT_RQUEST_CODE = 2;
+    final private static int EDIT_CAR_REQUEST_CODE = 3;
 
     Spinner carSpinner;
     CarRepository repository;
@@ -77,14 +78,10 @@ public class MainActivity extends AppCompatActivity
             }
 
             @Override
-            public void onTabUnselected(TabLayout.Tab tab) {
-
-            }
+            public void onTabUnselected(TabLayout.Tab tab) { }
 
             @Override
-            public void onTabReselected(TabLayout.Tab tab) {
-
-            }
+            public void onTabReselected(TabLayout.Tab tab) { }
         });
 
 
@@ -137,17 +134,26 @@ public class MainActivity extends AppCompatActivity
             case R.id.action_settings:
                 // User chose the "Settings" item, show the app settings UI...
                 return true;
-
             case R.id.action_add_car:
                 i = new Intent(this, AddCarActivity.class);
                 startActivityForResult(i, ADD_CAR_REQUEST_CODE);
+                return true;
+            case R.id.action_edit_car:
+                i = new Intent(this, AddCarActivity.class);
+                Car c = (Car) carSpinner.getSelectedItem();
+                i.putExtra(AddCarActivity.F_MAKE, c.make);
+                i.putExtra(AddCarActivity.F_MODEL, c.model);
+                i.putExtra(AddCarActivity.F_YEAR, c.year);
+                i.putExtra(AddCarActivity.F_TRIM, c.trim);
+                i.putExtra(AddCarActivity.F_NICK, c.nickname);
+                startActivityForResult(i, EDIT_CAR_REQUEST_CODE);
                 return true;
             case R.id.action_donate:
                 break;
             case R.id.action_open_source_licenses:
                 i = new Intent(this, OpenSourceLicensesActivity.class);
                 startActivity(i);
-                break;
+                return true;
             default:
                 // If we got here, the user's action was not recognized.
                 // Invoke the superclass to handle it.
@@ -203,6 +209,23 @@ public class MainActivity extends AppCompatActivity
                     }
                 } else {
                     Toast.makeText(this, R.string.no_mileage_added, Toast.LENGTH_LONG).show();
+                }
+                break;
+            case EDIT_CAR_REQUEST_CODE:
+                if (resultCode == Activity.RESULT_OK) {
+                    Bundle b = data.getExtras();
+                    if (b != null) {
+                        Car c = (Car)carSpinner.getSelectedItem();
+
+                        c.make = b.getString(AddCarActivity.F_MAKE, "");
+                        c.model = b.getString(AddCarActivity.F_MODEL, "");
+                        c.trim = b.getString(AddCarActivity.F_TRIM, "");
+                        c.year = b.getString(AddCarActivity.F_YEAR, "");
+                        c.nickname = b.getString(AddCarActivity.F_NICK, "");
+
+                        int count = repository.getCarDao().updateCar(c);
+                        Log.d(TAG, "Updated " + count + " car rows");
+                    }
                 }
                 break;
         }

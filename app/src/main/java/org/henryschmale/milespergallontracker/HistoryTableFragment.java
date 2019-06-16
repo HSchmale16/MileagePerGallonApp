@@ -65,7 +65,6 @@ public class HistoryTableFragment extends Fragment {
             listLiveData.observe(HistoryTableFragment.this, mileageIntervals -> view.setDataAdapter(new MileageIntervalTableAdapter(
                     HistoryTableFragment.this.getActivity(), mileageIntervals
             )));
-
         });
     }
 

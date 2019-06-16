@@ -72,7 +72,7 @@ public class GraphFragment extends Fragment {
                 xAxis.setValueFormatter(new ValueFormatter() {
                     @Override
                     public String getFormattedValue(float value) {
-                        Date d = new Date((int)value);
+                        Date d = new Date((long)value);
                         DateFormat df = android.text.format.DateFormat.getDateFormat(getContext());
                         return df.format(d);
                     }

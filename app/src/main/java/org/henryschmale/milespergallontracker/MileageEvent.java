@@ -20,7 +20,8 @@ import static androidx.room.ForeignKey.CASCADE;
                 onDelete = CASCADE
         ),
         indices = {
-                @Index("car_id")
+                @Index("car_id"),
+                @Index({"car_id", "when"})
         }
 )
 public class MileageEvent {

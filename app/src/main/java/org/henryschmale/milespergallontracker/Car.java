@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
+import androidx.room.Index;
 import androidx.room.PrimaryKey;
 
 @Entity(tableName = "car")
@@ -30,6 +31,7 @@ public class Car {
 
     @ColumnInfo(name = "car_year")
     public String year;
+
 
     public String getDisplayName() {
         if (this.nickname != null && !this.nickname.isEmpty()) {
