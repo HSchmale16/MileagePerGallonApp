@@ -27,21 +27,11 @@ public class AddCarActivity extends AppCompatActivity {
         setContentView(R.layout.activity_add_car);
 
         confirmButton = findViewById(R.id.ok_button);
-        confirmButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                AddCarActivity.this.returnCar();
-            }
-        });
+        confirmButton.setOnClickListener(v -> AddCarActivity.this.returnCar());
 
 
         cancelButton = findViewById(R.id.cancel_button);
-        cancelButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                AddCarActivity.this.canceled();
-            }
-        });
+        cancelButton.setOnClickListener(v -> AddCarActivity.this.canceled());
     }
 
     private void returnCar() {

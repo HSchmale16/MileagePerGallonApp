@@ -39,41 +39,38 @@ public abstract class CarDatabase extends RoomDatabase {
                                 @Override
                                 public void onCreate(@NonNull SupportSQLiteDatabase db) {
                                     super.onCreate(db);
-                                    Executors.newSingleThreadExecutor().execute(new Runnable() {
-                                        @Override
-                                        public void run() {
-                                            Car c = new Car();
-                                            String nickname = "Test Car Many Entries";
-                                            c.model = "Random";
-                                            c.make = "Honda";
-                                            c.nickname = nickname;
+                                    Executors.newSingleThreadExecutor().execute(() -> {
+                                        Car c = new Car();
+                                        String nickname = "Test Car Many Entries";
+                                        c.model = "Random";
+                                        c.make = "Honda";
+                                        c.nickname = nickname;
 
-                                            CarDao dao = getDatabase(context).carDao();
-                                            dao.addCar(c);
+                                        CarDao dao = getDatabase(context).carDao();
+                                        dao.addCar(c);
 
-                                            c = dao.getSingleCarByNickname(nickname);
-                                            Log.d(TAG, Integer.toString(c.id));
+                                        c = dao.getSingleCarByNickname(nickname);
+                                        Log.d(TAG, Integer.toString(c.id));
 
-                                            MileageEvent me = new MileageEvent();
-                                            Random rnd = new Random();
+                                        MileageEvent me = new MileageEvent();
+                                        Random rnd = new Random();
 
-                                            Calendar cal = Calendar.getInstance();
+                                        Calendar cal = Calendar.getInstance();
 
-                                            cal.add(Calendar.DATE, -200);
+                                        cal.add(Calendar.DATE, -200);
 
-                                            for (int i = 0; i < 30; ++i) {
-                                                me.costPerGallon = (rnd.nextInt(200) + 225) / 100.0;
-                                                me.mileage += rnd.nextInt(350) + 55;
-                                                me.gallons = (rnd.nextInt(22000) + 2000) / 1000.0;
+                                        for (int i = 0; i < 30; ++i) {
+                                            me.costPerGallon = (rnd.nextInt(200) + 225) / 100.0;
+                                            me.mileage += rnd.nextInt(350) + 55;
+                                            me.gallons = (rnd.nextInt(22000) + 2000) / 1000.0;
 
-                                                cal.add(Calendar.DATE, rnd.nextInt(7) + 2);
+                                            cal.add(Calendar.DATE, rnd.nextInt(7) + 2);
 
-                                                me.when = cal.getTime();
+                                            me.when = cal.getTime();
 
-                                                dao.addMileageEvent(c, me);
-                                            }
-
+                                            dao.addMileageEvent(c, me);
                                         }
+
                                     });
                                 }
                             })

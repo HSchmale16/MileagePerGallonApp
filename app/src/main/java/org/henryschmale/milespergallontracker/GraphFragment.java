@@ -18,10 +18,14 @@ import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
+import com.github.mikephil.charting.formatter.ValueFormatter;
 import com.github.mikephil.charting.utils.EntryXComparator;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 
 
@@ -64,6 +68,14 @@ public class GraphFragment extends Fragment {
                 chart.setData(new LineData(dataSet));
 
                 XAxis xAxis = chart.getXAxis();
+                xAxis.setValueFormatter(new ValueFormatter() {
+                    @Override
+                    public String getFormattedValue(float value) {
+                        Date d = new Date((int)value);
+                        DateFormat df = android.text.format.DateFormat.getDateFormat(getContext());
+                        return df.format(d);
+                    }
+                });
                 xAxis.setLabelRotationAngle(45);
                 xAxis.setAvoidFirstLastClipping(true);
                 chart.invalidate();

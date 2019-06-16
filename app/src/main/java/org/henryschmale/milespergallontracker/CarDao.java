@@ -48,26 +48,31 @@ public abstract class CarDao {
     abstract MileageTuple getLatestMileageForCar(int car_id);
 
 
+    /**
+     * TODO Change since to be an actual date calculated via preferences
+     * @param car_id
+     * @param since sqlite time delta expression for the datetime function
+     * @return
+     */
     @Query("SELECT \n" +
-            "car_id," +
-            "\"when\",\n" +
-            "last_fillup,\n" +
-            "mileage - last_mileage as milesTraveled,\n" +
-            "(mileage - last_mileage) / gallons as mpg,\n" +
-            "costPerGallon,\n" +
-            "gallons * costPerGallon / (mileage - last_mileage) as costPerMile\n" +
+            "    car_id,\n" +
+            "    \"when\",\n" +
+            "    last_fillup,\n" +
+            "    mileage - last_mileage as milesTraveled,\n" +
+            "    (mileage - last_mileage) / gallons as mpg,\n" +
+            "    costPerGallon,\n" +
+            "    gallons * costPerGallon / (mileage - last_mileage) as costPerMile\n" +
             "FROM\n" +
             "(SELECT\n" +
-            "car_id," +
-            "\tmileage,\n" +
-            "\t(SELECT b.mileage FROM mileage_events as b WHERE b.\"when\" < a.\"when\" ORDER BY b.\"when\" DESC LIMIT 1) as last_mileage,\n" +
-            "\t(SELECT b.`when` FROM mileage_events as b WHERE b.\"when\" < a.\"when\" ORDER BY b.\"when\" DESC LIMIT 1) as last_fillup,\n" +
-            "\tgallons,\n" +
-            "\tcostPerGallon,\n" +
-            "\t\"when\"\n" +
-            "FROM mileage_events as a WHERE last_mileage IS NOT NULL)\n" +
-            "WHERE car_id = :car_id AND \"when\" >= 0 AND :since LIKE '%year%' " +
-            "ORDER BY \"when\" DESC")
+            "    car_id,\n" +
+            "    mileage,\n" +
+            "    (SELECT b.mileage FROM mileage_events as b WHERE b.\"when\" < a.\"when\" ORDER BY b.\"when\" DESC LIMIT 1) as last_mileage,\n" +
+            "    (SELECT b.`when` FROM mileage_events as b WHERE b.\"when\" < a.\"when\" ORDER BY b.\"when\" DESC LIMIT 1) as last_fillup,\n" +
+            "    gallons,\n" +
+            "    costPerGallon,\n" +
+            "    \"when\"\n" +
+            "    FROM mileage_events as a WHERE last_mileage IS NOT NULL AND car_id = :car_id)\n" +
+            "WHERE \"when\" >= strftime('%s', datetime('now', :since))  ORDER BY \"when\" DESC")
     abstract LiveData<List<MileageInterval>> getMileageIntervals(long car_id, String since);
 
 
