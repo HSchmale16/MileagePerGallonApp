@@ -183,7 +183,7 @@ public class MainActivity extends AppCompatActivity
 
                     new CarRepository(getApplication()).insert(c);
 
-                } else if (requestCode == Activity.RESULT_CANCELED) {
+                } else {
                     Toast.makeText(this, R.string.no_car_added, Toast.LENGTH_LONG).show();
                 }
                 break;

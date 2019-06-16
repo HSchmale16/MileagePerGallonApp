@@ -9,6 +9,7 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,11 +18,13 @@ import org.henryschmale.milespergallontracker.view.StatCard;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
 import de.codecrafters.tableview.toolkit.SimpleTableHeaderAdapter;
 
 
 public class DashboardFragment extends Fragment {
+    public static final String TAG = "DashboardFragment";
     private StatCard mpg;
     private StatCard cost;
     private StatCard interMiles;
@@ -65,15 +68,24 @@ public class DashboardFragment extends Fragment {
                 listLiveData.observe(DashboardFragment.this, new Observer<List<MileageInterval>>() {
                     @Override
                     public void onChanged(List<MileageInterval> mileageIntervals) {
-                        mileageIntervals.stream()
-                                .reduce(MileageIntervalBinaryOp::computeTotalMileage)
-                                .ifPresent(s -> {
-                                    float times = (float)mileageIntervals.size();
-                                    totalMiles.setValue(s.milesTraveled);
-                                    interMiles.setValue(s.milesTraveled / times);
-                                    mpg.setValue(s.mpg / times);
-                                    cost.setValue(s.costPerMile / times);
-                                });
+                        Log.d(TAG, "MileageIntervals were updated, new length = " + mileageIntervals.size());
+                        Optional<MileageInterval> data = mileageIntervals.stream()
+                                .reduce(MileageIntervalBinaryOp::computeTotalMileage);
+
+                        if(data.isPresent()) {
+                            MileageInterval s = data.get();
+                            Log.d(TAG, "Updating labels");
+                            float times = (float)mileageIntervals.size();
+                            totalMiles.setValue(s.milesTraveled);
+                            interMiles.setValue(s.milesTraveled / times);
+                            mpg.setValue(s.mpg / times);
+                            cost.setValue(s.costPerMile / times);
+                        } else {
+                            totalMiles.setValue(0);
+                            interMiles.setValue(0);
+                            mpg.setValue(0);
+                            cost.setValue(0);
+                        }
                     }
                 });
             }

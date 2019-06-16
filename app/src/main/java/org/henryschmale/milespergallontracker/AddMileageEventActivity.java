@@ -24,6 +24,7 @@ import java.util.Date;
 
 public class AddMileageEventActivity extends AppCompatActivity {
     private final static String TAG = "AddMileageEventActivity";
+    private int carId;
     private Calendar mainCalendar;
 
 
@@ -34,25 +35,11 @@ public class AddMileageEventActivity extends AppCompatActivity {
         setContentView(R.layout.activity_add_mileage_event);
 
         Bundle extras = getIntent().getExtras();
-        int carId = extras.getInt("car_id");
+        carId = extras.getInt("car_id");
         Log.d(TAG, "The car id is " + carId);
 
-        CarRepository repo = new CarRepository(getApplication());
-
-        CarDao.MileageTuple tuple = repo.getCarDao().getLatestMileageForCar(carId);
-        double lastMileage;
-        if (tuple != null) {
-            final TextView currentMileage = findViewById(R.id.lbl_current_mileage);
-            lastMileage = tuple.mileage;
-            String s = getString(R.string.lbl_current_mileage_last, lastMileage);
-            currentMileage.setText(s);
-        } else {
-            Log.d(TAG, "Failed to get last mileage");
-            lastMileage = 0;
-        }
-
         mainCalendar = Calendar.getInstance();
-        updateDateTimeButtons();
+        updateAfterDateTimeChanged();
 
         Button confirmButton = findViewById(R.id.ok_button);
         confirmButton.setOnClickListener(v -> AddMileageEventActivity.this.returnMileageEvent());
@@ -121,7 +108,7 @@ public class AddMileageEventActivity extends AppCompatActivity {
         mainCalendar.set(Calendar.HOUR_OF_DAY, hourOfDay);
         mainCalendar.set(Calendar.MINUTE, hourOfDay);
 
-        updateDateTimeButtons();
+        updateAfterDateTimeChanged();
     }
 
     protected void setYearMonthDay(int year, int month, int day) {
@@ -129,10 +116,10 @@ public class AddMileageEventActivity extends AppCompatActivity {
         mainCalendar.set(Calendar.MONTH, month);
         mainCalendar.set(Calendar.DAY_OF_MONTH, day);
 
-        updateDateTimeButtons();
+        updateAfterDateTimeChanged();
     }
 
-    private void updateDateTimeButtons() {
+    private void updateAfterDateTimeChanged() {
         Date d = mainCalendar.getTime();
 
         Button timeButton = findViewById(R.id.set_time_button);
@@ -143,6 +130,20 @@ public class AddMileageEventActivity extends AppCompatActivity {
         Button dateButton = findViewById(R.id.set_date_button);
         java.text.DateFormat dateFormat = DateFormat.getDateFormat(getApplicationContext());
         dateButton.setText(dateFormat.format(d));
+
+        // Latest Mileage Update
+        CarRepository repo = new CarRepository(getApplication());
+        CarDao.MileageTuple tuple = repo.getCarDao().getLatestMileageForCar(carId);
+        double lastMileage;
+        if (tuple != null) {
+            final TextView currentMileage = findViewById(R.id.lbl_current_mileage);
+            lastMileage = tuple.mileage;
+            String s = getString(R.string.lbl_current_mileage_last, lastMileage);
+            currentMileage.setText(s);
+        } else {
+            Log.d(TAG, "Failed to get last mileage");
+            lastMileage = 0;
+        }
     }
 
     public static class TimePickerFragment extends DialogFragment

@@ -66,8 +66,8 @@ public abstract class CarDao {
             "(SELECT\n" +
             "    car_id,\n" +
             "    mileage,\n" +
-            "    (SELECT b.mileage FROM mileage_events as b WHERE b.\"when\" < a.\"when\" ORDER BY b.\"when\" DESC LIMIT 1) as last_mileage,\n" +
-            "    (SELECT b.`when` FROM mileage_events as b WHERE b.\"when\" < a.\"when\" ORDER BY b.\"when\" DESC LIMIT 1) as last_fillup,\n" +
+            "    (SELECT b.mileage FROM mileage_events as b WHERE b.\"when\" < a.\"when\" AND car_id = :car_id ORDER BY b.\"when\" DESC LIMIT 1) as last_mileage,\n" +
+            "    (SELECT b.`when` FROM mileage_events as b WHERE b.\"when\" < a.\"when\" AND car_id = :car_id ORDER BY b.\"when\" DESC LIMIT 1) as last_fillup,\n" +
             "    gallons,\n" +
             "    costPerGallon,\n" +
             "    \"when\"\n" +

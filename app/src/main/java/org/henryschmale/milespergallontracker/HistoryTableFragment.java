@@ -24,8 +24,8 @@ import de.codecrafters.tableview.toolkit.SimpleTableHeaderAdapter;
  * create an instance of this fragment.
  */
 public class HistoryTableFragment extends Fragment {
-    TableView<MileageInterval> view;
-    View emptyDataIndicator;
+    private TableView<MileageInterval> view;
+    private View emptyDataIndicator;
 
     public HistoryTableFragment() {
         // Required empty public constructor
@@ -60,19 +60,12 @@ public class HistoryTableFragment extends Fragment {
         view.setColumnCount(5);
         view.setEmptyDataIndicatorView(emptyDataIndicator);
 
-        viewModel.getMileageIntervals().observe(this, new Observer<LiveData<List<MileageInterval>>>() {
-            @Override
-            public void onChanged(LiveData<List<MileageInterval>> listLiveData) {
-                listLiveData.removeObservers(HistoryTableFragment.this);
-                listLiveData.observe(HistoryTableFragment.this, new Observer<List<MileageInterval>>() {
-                    @Override
-                    public void onChanged(List<MileageInterval> mileageIntervals) {
-                        view.setDataAdapter(new MileageIntervalTableAdapter(
-                                HistoryTableFragment.this.getActivity(), mileageIntervals
-                        ));
-                    }
-                });
-            }
+        viewModel.getMileageIntervals().observe(this, (LiveData<List<MileageInterval>> listLiveData) -> {
+            listLiveData.removeObservers(HistoryTableFragment.this);
+            listLiveData.observe(HistoryTableFragment.this, mileageIntervals -> view.setDataAdapter(new MileageIntervalTableAdapter(
+                    HistoryTableFragment.this.getActivity(), mileageIntervals
+            )));
+
         });
     }
 
