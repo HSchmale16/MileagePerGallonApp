@@ -22,6 +22,11 @@ android {
     }
 }
 
+repositories {
+    maven { url 'https://jitpack.io' }
+}
+
+
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation 'androidx.appcompat:appcompat:1.0.2'
@@ -40,6 +45,8 @@ dependencies {
     annotationProcessor "androidx.lifecycle:lifecycle-compiler:$rootProject.archLifecycleVersion"
 
     implementation 'de.codecrafters.tableview:tableview:2.8.0'
+
+    implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0'
 
 
 }
