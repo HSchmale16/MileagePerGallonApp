@@ -1,35 +1,53 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     tools:context=".DashboardFragment">
 
-    <org.henryschmale.milespergallontracker.view.StatCard
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="16dp"
-        app:description="@string/stat_mpg_lbl"
-        app:iconDrawable="@drawable/ic_diesel"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <org.henryschmale.milespergallontracker.view.StatCard
+                android:id="@+id/avg_mpg"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp"
+                app:description="@string/stat_mpg_lbl"
+                app:iconDrawable="@drawable/ic_diesel"
+                app:formatStatId="@string/format_mpg"/>
 
 
-    <org.henryschmale.milespergallontracker.view.StatCard
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="16dp"
-        app:description="@string/stat_average_cost_per_mile"/>
+            <org.henryschmale.milespergallontracker.view.StatCard
+                android:id="@+id/avg_mile_cost"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp"
+                app:description="@string/stat_average_cost_per_mile"
+                app:formatStatId="@string/format_cost"
+                app:iconDrawable="@drawable/ic_money_bag_with_dollar_symbol"/>
 
-    <org.henryschmale.milespergallontracker.view.StatCard
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="16dp"
-        app:description="@string/stat_miles_between_fillups"/>
+            <org.henryschmale.milespergallontracker.view.StatCard
+                android:id="@+id/avg_miles_between_fillups"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp"
+                app:description="@string/stat_miles_between_fillups"
+                app:formatStatId="@string/format_miles"
+                app:iconDrawable="@drawable/ic_distance_to_travel_between_two_points"/>
 
-    <org.henryschmale.milespergallontracker.view.StatCard
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="16dp"
-        app:description="@string/stat_total_miles_tracked"/>
-</LinearLayout>
+            <org.henryschmale.milespergallontracker.view.StatCard
+                android:id="@+id/total_miles"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp"
+                app:description="@string/stat_total_miles_tracked"
+                app:formatStatId="@string/format_miles"
+                app:iconDrawable="@drawable/ic_distance_to_travel_between_two_points"/>
+        </LinearLayout>
+
+</ScrollView>

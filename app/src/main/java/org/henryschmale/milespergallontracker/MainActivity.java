@@ -21,6 +21,8 @@ import androidx.viewpager.widget.ViewPager;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.tabs.TabLayout;
 
+import org.henryschmale.milespergallontracker.view.StatCard;
+
 import java.util.Date;
 import java.util.List;
 

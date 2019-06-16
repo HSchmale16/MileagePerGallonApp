@@ -35,6 +35,9 @@ public abstract class CarDao {
     @Query("SELECT * FROM car WHERE car_id = :car_id LIMIT 1")
     abstract Car getSingleCar(long car_id);
 
+    @Query("SELECT * FROM car WHERE car_nickname = :nickname LIMIT 1")
+    abstract Car getSingleCarByNickname(String nickname);
+
     @Insert
     abstract void addCar(Car car);
 
@@ -43,6 +46,7 @@ public abstract class CarDao {
 
     @Query("SELECT mileage FROM mileage_events WHERE car_id = :car_id ORDER BY `when` DESC LIMIT 1")
     abstract MileageTuple getLatestMileageForCar(int car_id);
+
 
     @Query("SELECT \n" +
             "car_id," +

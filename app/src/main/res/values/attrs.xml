@@ -3,5 +3,6 @@
     <declare-styleable name="StatCard">
         <attr name="description" format="reference"/>
         <attr name="iconDrawable" format="reference"/>
+        <attr name="formatStatId" format="reference"/>
     </declare-styleable>
 </resources>
