@@ -14,6 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.github.mikephil.charting.charts.LineChart;
+import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
@@ -61,6 +62,10 @@ public class GraphFragment extends Fragment {
                 Collections.sort(entries, new EntryXComparator());
                 LineDataSet dataSet = new LineDataSet(entries, "Label");
                 chart.setData(new LineData(dataSet));
+
+                XAxis xAxis = chart.getXAxis();
+                xAxis.setLabelRotationAngle(45);
+                xAxis.setAvoidFirstLastClipping(true);
                 chart.invalidate();
             });
         });
