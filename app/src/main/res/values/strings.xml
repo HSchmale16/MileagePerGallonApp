@@ -70,12 +70,18 @@
     <string name="stat_miles_between_fillups">Average Miles Between Fill-Ups</string>
     <string name="stat_average_cost_per_mile">Average Cost Per Mile</string>
     <string name="stat_total_miles_tracked">Total Miles Tracked</string>
-    <string name="format_miles">%.0f miles</string>
+    <string name="format_miles">%,.0f miles</string>
     <string name="format_cost">$ %.2f</string>
     <string name="format_mpg">%.2f mpg</string>
 
 
     <string name="def_statcard_stat_format">%f</string>
     <string name="def_statcard_description_lbl">No Stat Card Description Set</string>
+
+    <string name="title_edit_car">Editing A Car</string>
+    <string name="title_add_car">Add A New Car</string>
+
+    <string name="f_date_range">%s to %s</string>
+    <string name="f_gallon_text">%.3f gal @ $%.2f</string>
 
 </resources>

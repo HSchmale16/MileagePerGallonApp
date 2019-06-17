@@ -6,6 +6,7 @@ import android.util.Log;
 import androidx.lifecycle.LiveData;
 import androidx.room.ColumnInfo;
 import androidx.room.Dao;
+import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.Query;
 import androidx.room.Update;
@@ -57,24 +58,19 @@ public abstract class CarDao {
     abstract MileageTuple getLatestMileageForCar(int car_id, Date date);
 
 
-
-
-    /**
-     * TODO Change since to be an actual date calculated via preferences
-     * @param car_id
-     * @param since sqlite time delta expression for the datetime function
-     * @return
-     */
     @Query("SELECT \n" +
+            "    id,\n" +
             "    car_id,\n" +
             "    \"when\",\n" +
             "    last_fillup,\n" +
             "    mileage - last_mileage as milesTraveled,\n" +
             "    (mileage - last_mileage) / gallons as mpg,\n" +
+            "    gallons,\n" +
             "    costPerGallon,\n" +
             "    gallons * costPerGallon / (mileage - last_mileage) as costPerMile\n" +
             "FROM\n" +
             "(SELECT\n" +
+            "    id,\n" +
             "    car_id,\n" +
             "    mileage,\n" +
             "    (SELECT b.mileage FROM mileage_events as b WHERE b.\"when\" < a.\"when\" AND car_id = :car_id ORDER BY b.\"when\" DESC LIMIT 1) as last_mileage,\n" +
@@ -82,10 +78,13 @@ public abstract class CarDao {
             "    gallons,\n" +
             "    costPerGallon,\n" +
             "    \"when\"\n" +
-            "    FROM mileage_events as a WHERE last_mileage IS NOT NULL AND car_id = :car_id)\n" +
+            "    FROM mileage_events as a WHERE car_id = :car_id)\n" +
             "WHERE \"when\" >= strftime('%s', datetime('now', :since))  ORDER BY \"when\" DESC")
     abstract LiveData<List<MileageInterval>> getMileageIntervals(long car_id, String since);
 
+
+    @Delete
+    abstract void deleteMileageEvent(MileageEvent event);
 
     @Query("SELECT COUNT(*) FROM car")
     abstract long carCount();

@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginLeft="16dp"
+    android:layout_marginRight="16dp"
+    android:layout_marginBottom="6dp"
+    android:layout_marginTop="6dp">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="4dp">
+
+        <TextView
+            android:id="@+id/date_range"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:text="2019-00-00 to 2019-00-00" />
+
+        <TextView
+            android:id="@+id/gallons"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/date_range"
+            android:layout_alignEnd="@id/date_range"
+            android:text="12 gal @ $3.54" />
+
+        <TextView
+            android:id="@+id/mileage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/gallons"
+            android:layout_alignEnd="@id/date_range"
+            android:text="350 mi" />
+
+        <TextView
+            android:id="@+id/mpg"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentTop="true"
+            android:text="31 MPG"
+            />
+
+        <TextView
+            android:id="@+id/mile_cost"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/mpg"
+            android:layout_alignParentEnd="true"
+            android:text="Mile Cost: $0.10"
+            />
+
+    </RelativeLayout>
+</androidx.cardview.widget.CardView>

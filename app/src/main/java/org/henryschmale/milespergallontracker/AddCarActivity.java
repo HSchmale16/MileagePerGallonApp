@@ -34,7 +34,6 @@ public class AddCarActivity extends AppCompatActivity {
     Button confirmButton;
 
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -58,12 +57,15 @@ public class AddCarActivity extends AppCompatActivity {
             String[] things = getResources().getStringArray(R.array.car_makes);
             int pos = Arrays.binarySearch(things, b.getString(F_MAKE));
             if (pos >= 0) {
+                getSupportActionBar().setTitle(R.string.title_edit_car);
                 makeSpinner.setSelection(pos);
-                modelText.setText(b.getString(F_MODEL,""));
+                modelText.setText(b.getString(F_MODEL, ""));
                 trimText.setText(b.getString(F_TRIM, ""));
                 yearText.setText(b.getString(F_YEAR, ""));
                 nickText.setText(b.getString(F_NICK, ""));
             }
+        } else {
+            getSupportActionBar().setTitle(R.string.title_add_car);
         }
     }
 

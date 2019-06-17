@@ -30,7 +30,7 @@ public class MileageEvent {
 
     @ColumnInfo(name = "car_id")
     @NonNull
-    public int carId;
+    public long carId;
 
     @NonNull
     public long mileage;
