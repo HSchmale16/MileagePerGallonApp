@@ -132,7 +132,7 @@ public class MainActivity extends AppCompatActivity
         Intent i;
         switch (item.getItemId()) {
             case R.id.action_settings:
-                // User chose the "Settings" item, show the app settings UI...
+                Toast.makeText(this, R.string.coming_soon, Toast.LENGTH_LONG).show();
                 return true;
             case R.id.action_add_car:
                 i = new Intent(this, AddCarActivity.class);
@@ -149,7 +149,8 @@ public class MainActivity extends AppCompatActivity
                 startActivityForResult(i, EDIT_CAR_REQUEST_CODE);
                 return true;
             case R.id.action_donate:
-                break;
+                Toast.makeText(this, R.string.coming_soon, Toast.LENGTH_LONG).show();
+                return true;
             case R.id.action_open_source_licenses:
                 i = new Intent(this, OpenSourceLicensesActivity.class);
                 startActivity(i);
@@ -159,7 +160,6 @@ public class MainActivity extends AppCompatActivity
                 // Invoke the superclass to handle it.
                 return super.onOptionsItemSelected(item);
         }
-        return super.onOptionsItemSelected(item);
     }
 
     @Override
