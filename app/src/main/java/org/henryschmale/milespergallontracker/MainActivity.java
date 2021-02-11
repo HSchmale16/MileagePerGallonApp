@@ -155,7 +155,11 @@ public class MainActivity extends AppCompatActivity
                 i = new Intent(this, OpenSourceLicensesActivity.class);
                 startActivity(i);
                 return true;
-            default:
+            case R.id.action_generate_database_export:
+                i = new Intent(this, DatabaseExportActivity.class);
+                startActivity(i);
+                return true;
+                default:
                 // If we got here, the user's action was not recognized.
                 // Invoke the superclass to handle it.
                 return super.onOptionsItemSelected(item);

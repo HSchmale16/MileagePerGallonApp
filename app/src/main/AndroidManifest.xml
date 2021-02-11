@@ -9,13 +9,17 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".OpenSourceLicensesActivity"/>
+        <activity
+            android:name=".DatabaseExportActivity"
+            android:label="@string/title_activity_database_export"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity android:name=".OpenSourceLicensesActivity" />
         <activity android:name=".AddMileageEventActivity" />
         <activity android:name=".AddCarActivity" />
         <activity
             android:name=".MainActivity"
-            android:windowSoftInputMode="adjustResize"
-            android:theme="@style/AppTheme.NoActionBar">
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="adjustResize">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -28,9 +32,9 @@
                 <category android:name="android.intent.category.BROWSABLE" />
 
                 <data
-                    android:scheme="http"
                     android:host="www.henryschmale.org"
-                    android:path="/mpg-app" />
+                    android:path="/mpg-app"
+                    android:scheme="http" />
             </intent-filter>
         </activity>
     </application>

@@ -70,4 +70,12 @@
         <item>Yugo</item>
     </string-array>
 
+    <string-array name="export_formats">
+        <item>CSV</item>
+    </string-array>
+
+    <string-array name="export_locations">
+        <item>File on Device</item>
+    </string-array>
+
 </resources>

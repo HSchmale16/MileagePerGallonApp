@@ -84,5 +84,13 @@
 
     <string name="f_date_range">%s to %s</string>
     <string name="f_gallon_text">%.3f gal @ $%.2f</string>
+    <string name="generate_database_export">Export Database</string>
+    <string name="title_activity_database_export">DatabaseExportActivity</string>
 
+
+    <!-- export database activity -->
+    <string name="lbl_export_format">Export Format</string>
+    <string name="lbl_export_location">Where to Send</string>
+    <string name="lbl_export_filename">Filename</string>
+    <string name="action_export">Export Database</string>
 </resources>

@@ -94,8 +94,8 @@ public class AddMileageEventActivity extends AppCompatActivity {
     }
 
     public void showDatePickerDialog(View v) {
-        DialogFragment newFragement = new DatePickerFragment();
-        newFragement.show(getSupportFragmentManager(), "datePicker");
+        DialogFragment newFragment = new DatePickerFragment();
+        newFragment.show(getSupportFragmentManager(), "datePicker");
     }
 
     private void canceled() {

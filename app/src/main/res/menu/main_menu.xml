@@ -29,7 +29,7 @@
         app:showAsAction="never" />
 
     <item
-        android:id="@+id/action_clear_db"
-        android:title="ClearDb"
+        android:id="@+id/action_generate_database_export"
+        android:title="@string/generate_database_export"
         app:showAsAction="never" />
 </menu>
